@@ -14,7 +14,7 @@ import com.HelpCalc.HelpCalc.dto.User;
 import com.HelpCalc.HelpCalc.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://localhost"})
 @RequestMapping
 public class UserController {
 

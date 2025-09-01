@@ -20,7 +20,7 @@ import com.HelpCalc.HelpCalc.config.ResponseStructure;
 import com.HelpCalc.HelpCalc.dto.Expense;
 import com.HelpCalc.HelpCalc.dto.Items;
 import com.HelpCalc.HelpCalc.service.MasterService;
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://localhost"})
 @RestController
 @RequestMapping
 public class masterController {
