@@ -19,7 +19,7 @@ public class Transaction_smry {
 	private double total;
 	
 	@ManyToOne
-	@JoinColumn(name="transactionId" , referencedColumnName = "transactionId")
+	@JoinColumn(name="transaction_id" , referencedColumnName = "transaction_id")
 	private Transactions transactions;
 	
 	public int getId() {

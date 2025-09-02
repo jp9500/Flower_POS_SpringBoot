@@ -1,5 +1,7 @@
 package com.HelpCalc.HelpCalc.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,9 @@ public class Transactiondao {
 	
 	public Transactions saveTransaction(Transactions transaction) {
 		return transrepo.save(transaction);
+	}
+	
+	public Object[] overallSales(int month) {
+		return transrepo.overAllSalesInMonthly(month);
 	}
 }

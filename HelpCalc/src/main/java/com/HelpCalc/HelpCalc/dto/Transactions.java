@@ -21,7 +21,7 @@ public class Transactions {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int transactionId;
+	private int transaction_id;
 	private double subtotal;
 	private double commission_total;
 	private double grand_total;
@@ -61,12 +61,12 @@ public class Transactions {
 		this.comm_perc = comm_perc;
 	}
 	
-	public int getTransactionId() {
-		return transactionId;
+	public int getTransaction_id() {
+		return transaction_id;
 	}
 
-	public void setTransactionId(int transactionId) {
-		this.transactionId = transactionId;
+	public void setTransaction_id(int transaction_id) {
+		this.transaction_id = transaction_id;
 	}
 
 	public double getSubtotal() {

@@ -1,6 +1,9 @@
 package com.HelpCalc.HelpCalc.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +38,25 @@ public class TransService {
 		responseStructure.setStatusCode(404);
 		responseStructure.setMessage("Invalid transaction data");
 		return ResponseEntity.status(400).body(responseStructure);
+	}
+	
+	public List<Map<String, Object>> overallSales(int month) {
+		Object[] result = transdao.overallSales(month);
+		if(result == null) {
+			
+			 return List.of(
+			            Map.of("label", "Subtotal", "value", 0),
+			            Map.of("label", "Grand Total", "value", 0),
+			            Map.of("label", "Commission", "value", 0)
+			        );
+			}
+			
+			List<Map<String, Object>> response = new ArrayList<>();
+			response.add(Map.of("label", "Subtotal", "value", ((Number) result[0]).doubleValue()));
+			response.add(Map.of("label", "Grand Total", "value", ((Number) result[1]).doubleValue()));
+			response.add(Map.of("label", "Commission", "value", ((Number) result[2]).doubleValue()));
+			
+			return response;
+
 	}
 }
