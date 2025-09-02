@@ -41,20 +41,19 @@ public class TransService {
 	}
 	
 	public List<Map<String, Object>> overallSales(int month) {
-		Object[] result = transdao.overallSales(month);
-		if(result == null) {
-			
+		List<Object[]> results = transdao.overallSales(month);
+		if(results == null) {
 			 return List.of(
 			            Map.of("label", "Subtotal", "value", 0),
 			            Map.of("label", "Grand Total", "value", 0),
 			            Map.of("label", "Commission", "value", 0)
 			        );
 			}
-			
+			Object[] result = results.get(0);
 			List<Map<String, Object>> response = new ArrayList<>();
-			response.add(Map.of("label", "Subtotal", "value", ((Number) result[0]).doubleValue()));
-			response.add(Map.of("label", "Grand Total", "value", ((Number) result[1]).doubleValue()));
-			response.add(Map.of("label", "Commission", "value", ((Number) result[2]).doubleValue()));
+			response.add(Map.of("label", "Subtotal", "value",Math.round( ((Number) result[0]).doubleValue())));
+			response.add(Map.of("label", "Grand Total", "value",Math.round( ((Number) result[1]).doubleValue())));
+			response.add(Map.of("label", "Commission", "value",Math.round( ((Number) result[2]).doubleValue())));
 			
 			return response;
 

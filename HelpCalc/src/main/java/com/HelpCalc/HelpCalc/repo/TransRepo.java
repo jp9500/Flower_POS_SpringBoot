@@ -12,10 +12,10 @@ import com.HelpCalc.HelpCalc.dto.Transactions;
 
 public interface TransRepo extends JpaRepository<Transactions, Long>{
 
-	@Query(value = "SELECT SUM(subtotal),SUM(grand_total),SUM(commission_total) FROM transactions "
+	@Query(value = "SELECT ROUND(SUM(subtotal)),ROUND(SUM(grand_total)),ROUND(SUM(commission_total)) FROM transactions "
 			+ "WHERE MONTH(transaction_date)= :month "
-			+ "GROUP BY MONTH(transaction_date) ", nativeQuery = true)
-	Object[] overAllSalesInMonthly(int month);
+			+ "GROUP BY MONTH(transaction_date),WEEK(transaction_date) ", nativeQuery = true)
+	List<Object[]> overAllSalesInMonthly(int month);
 	
 	@Query(value = "SELECT item_name,SUM(total)  "
 			+ "FROM `transaction_smry` a  "

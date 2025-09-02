@@ -18,7 +18,7 @@ public class Transactiondao {
 		return transrepo.save(transaction);
 	}
 	
-	public Object[] overallSales(int month) {
+	public List<Object[]> overallSales(int month) {
 		return transrepo.overAllSalesInMonthly(month);
 	}
 }
