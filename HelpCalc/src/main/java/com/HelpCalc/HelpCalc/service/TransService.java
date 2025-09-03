@@ -40,8 +40,8 @@ public class TransService {
 		return ResponseEntity.status(400).body(responseStructure);
 	}
 	
-	public List<Map<String, Object>> overallSales(int month) {
-		List<Object[]> results = transdao.overallSales(month);
+	public List<Map<String, Object>> overallSales(String from, String to) {
+		List<Object[]> results = transdao.overallSales(from, to);
 		if(results == null) {
 			 return List.of(
 			            Map.of("label", "Subtotal", "value", 0),
@@ -58,4 +58,56 @@ public class TransService {
 			return response;
 
 	}
+	
+	
+	public List<Map<String, Object>> itemwiseSales(String from, String to) {
+		List<Object[]> results = transdao.itemwiseSales(from, to);
+		if(results == null) {
+			 return List.of(
+			            Map.of("label", "No Data", "value", 0)
+			        );
+			}
+			List<Map<String, Object>> response = new ArrayList<>();
+			for(Object[] result : results) {
+				response.add(Map.of("label", result[0], "value",Math.round( ((Number) result[1]).doubleValue())));
+			}
+			
+			return response;
+	}
+	
+	public List<Map<String, Object>> recentTransactions(String from, String to) {
+		List<Object[]> results = transdao.recentTransactions(from, to);
+		if(results == null) {
+			 return null;
+			}
+			
+			List<Map<String, Object>> response = new ArrayList<>();
+			for(Object[] result : results) {
+				response.add(Map.of(
+						"id", result[0],
+						"date", result[1].toString(),
+						"items", ((Number) result[2]).intValue(),
+						"amount", Math.round( ((Number) result[3]).doubleValue())
+						));
+			}
+			return response;
+	}
+	
+	public List<Map<String, Object>> transactionDetails(Long id) {
+		List<Object[]> results = transdao.transactionDetails(id);
+		if(results == null) {
+			 return new ArrayList<>();
+			}
+			
+			List<Map<String, Object>> response = new ArrayList<>();
+			for(Object[] result : results) {
+				response.add(Map.of(
+						"itemName", result[0],
+						"qty", ((Number) result[1]).intValue(),
+						"price", Math.round( ((Number) result[2]).doubleValue())
+						));
+			}
+			return response;
+	}
+
 }

@@ -18,7 +18,19 @@ public class Transactiondao {
 		return transrepo.save(transaction);
 	}
 	
-	public List<Object[]> overallSales(int month) {
-		return transrepo.overAllSalesInMonthly(month);
+	public List<Object[]> overallSales(String from, String to) {
+		return transrepo.overAllSalesInMonthly(from, to);
+	}
+	
+	public List<Object[]> itemwiseSales(String from, String to) {
+		return transrepo.itemWiseOverAllSales(from, to);
+	}
+	
+	public List<Object[]> recentTransactions(String from, String to) {
+		return transrepo.findAllTransactions(from, to);
+	}
+	
+	public List<Object[]> transactionDetails(Long id) {
+		return transrepo.findTransactionDetails(id);
 	}
 }

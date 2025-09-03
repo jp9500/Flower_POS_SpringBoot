@@ -31,10 +31,22 @@ public class TransController {
 	}
 	
 	@GetMapping("overallSales")
-	public List<Map<String, Object>> overallSales(@RequestParam int input) {
-		return transservice.overallSales(input);
+	public List<Map<String, Object>> overallSales(@RequestParam String from, @RequestParam String to) {
+		return transservice.overallSales(from, to);
 	}
 	
+	@GetMapping("itemwiseSales")
+	public List<Map<String, Object>> itemwiseSales(@RequestParam String from, @RequestParam String to) {
+		return transservice.itemwiseSales(from, to);
+	}
 	
+	@GetMapping("recentTransactions")
+	public List<Map<String, Object>> recentTransactions(@RequestParam String from, @RequestParam String to) {
+		return transservice.recentTransactions(from, to);
+	}
 	
+	@GetMapping("transactionDetails")
+	public List<Map<String, Object>> transactionDetails(@RequestParam Long id) {
+		return transservice.transactionDetails(id);
+	}
 }
