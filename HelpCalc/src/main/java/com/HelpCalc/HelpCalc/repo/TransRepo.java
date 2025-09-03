@@ -24,18 +24,19 @@ public interface TransRepo extends JpaRepository<Transactions, Long>{
 			+ "GROUP BY item_name", nativeQuery = true)
 	List<Object[]> itemWiseOverAllSales(String from, String to);
 	
-	@Query(value = "SELECT a.transaction_id AS id,DATE(transaction_date) AS DATE, COUNT(item_id) AS items, grand_total AS amount "
+	@Query(value = "SELECT a.transaction_id AS id,DATE(transaction_date) AS DATE, COUNT(item_id) AS items, grand_total AS amount,commission_total as commTotal "
 			+ " FROM transactions a "
 			+ " INNER JOIN `user` c ON a.userid=c.userid "
 			+ " INNER JOIN `transaction_smry` b ON a.transaction_id=b.transaction_id "
-			+ " WHERE transaction_date BETWEEN :from AND :to "
+			+ " WHERE DATE(transaction_date) BETWEEN :from AND :to "
 			+ " GROUP BY a.transaction_id "
-			+ " ORDER BY transaction_date DESC ", nativeQuery = true)
+			+ " ORDER BY DATE(transaction_date) DESC ", nativeQuery = true)
 	List<Object[]> findAllTransactions(String from, String to);
 	
-	@Query(value = "SELECT b.item_name,a.quantity,a.price,a.total "
+	@Query(value = "SELECT b.item_name,a.quantity,a.price,a.total,b.uom "
 			+ " FROM `transaction_smry` a "
-			+ " INNER JOIN `items` b ON a.item_id=b.item_id "
+			+ " INNER JOIN `transactions` c ON a. transaction_id=c.transaction_id "
+			+ " INNER JOIN `items` b ON a.item_id=b.item_id and c.userid=b.userid "
 			+ " WHERE a.transaction_id= :id ", nativeQuery = true)
 	List<Object[]> findTransactionDetails(Long id);
 }

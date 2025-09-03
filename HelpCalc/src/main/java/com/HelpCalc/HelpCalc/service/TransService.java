@@ -87,7 +87,8 @@ public class TransService {
 						"id", result[0],
 						"date", result[1].toString(),
 						"items", ((Number) result[2]).intValue(),
-						"amount", Math.round( ((Number) result[3]).doubleValue())
+						"amount", Math.round( ((Number) result[3]).doubleValue()),
+						"commTotal", Math.round( ((Number) result[4]).doubleValue())
 						));
 			}
 			return response;
@@ -103,11 +104,12 @@ public class TransService {
 			for(Object[] result : results) {
 				response.add(Map.of(
 						"itemName", result[0],
-						"qty", ((Number) result[1]).intValue(),
-						"price", Math.round( ((Number) result[2]).doubleValue())
+						"qty", ((Number) result[1]).intValue()+" "+result[4],
+						"price", Math.round( ((Number) result[2]).doubleValue()),
+						"total", Math.round( ((Number) result[3]).doubleValue())
 						));
 			}
 			return response;
 	}
-
+	
 }
