@@ -34,7 +34,7 @@ public class Transactions {
 	@OneToMany(cascade = CascadeType.ALL , mappedBy = "transactions")
 	private List<Transaction_smry> smry;
 	
-	
+	private String type;
 	
 	
 	public LocalDateTime  getTransactionDate() {
@@ -99,6 +99,14 @@ public class Transactions {
 	
 	public void setSmry(List<Transaction_smry> smry) {
 		this.smry = smry;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 

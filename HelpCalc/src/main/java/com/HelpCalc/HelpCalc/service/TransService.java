@@ -23,6 +23,10 @@ public class TransService {
 		ResponseStructure<Transactions> responseStructure = new ResponseStructure<>();
 		if(transaction != null) {
 			transaction.setTransactionDate(LocalDateTime.now());
+			if(transaction.getType().equalsIgnoreCase("expense")) 
+				transaction.setType("E");
+			else 
+				transaction.setType("I");
 			Transactions savedTransaction = transdao.saveTransaction(transaction);
 			if(savedTransaction != null) {
 				responseStructure.setStatusCode(200);

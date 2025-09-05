@@ -53,9 +53,9 @@ public class masterController {
 		return s.getAllExpenses();
 	}
 	
-	@PostMapping("saveExpense")
-	public ResponseEntity<ResponseStructure<Expense>> saveExpense(@RequestBody Expense expense) {
-		return s.saveExpense(expense);
+	@PostMapping("saveExpense/{userid}")
+	public ResponseEntity<ResponseStructure<Expense>> saveExpense(@RequestBody Expense expense,@PathVariable Long userid) {
+		return s.saveExpense(expense, userid);
 	}
 	
 	@DeleteMapping("deleteExpense/{id}")
@@ -71,6 +71,11 @@ public class masterController {
 	@GetMapping("getItemBySearch")
 	public ResponseEntity<ResponseStructure<ArrayList<Items>>> getItemBySearch(@RequestParam String input) {
 		return s.getItemBySearch(input);
+	}
+	
+	@GetMapping("getExpenseBySearch")
+	public ResponseEntity<ResponseStructure<ArrayList<Expense>>> getExpenseBySearch(@RequestParam String input) {
+		return s.getExpenseBySearch(input);
 	}
 
 }

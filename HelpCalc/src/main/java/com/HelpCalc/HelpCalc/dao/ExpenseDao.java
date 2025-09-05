@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.HelpCalc.HelpCalc.dto.Expense;
+import com.HelpCalc.HelpCalc.dto.Items;
 import com.HelpCalc.HelpCalc.repo.ExpenseRepo;
 
 @Repository
@@ -51,5 +52,13 @@ public class ExpenseDao {
 	
 	public Expense findByExpenseName(String expenseName) {
 		return er.findByExpenseName(expenseName);
+	}
+	
+	public ArrayList<Expense> getExpenceBySearch(String input) {
+	    return new ArrayList<>(
+	        er.findAll().stream()
+	            .filter(item -> item.getExpenseName().toLowerCase().contains(input.toLowerCase()))
+	            .toList()
+	    );
 	}
 }

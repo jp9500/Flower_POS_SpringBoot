@@ -17,6 +17,7 @@ public class Transaction_smry {
 	private int quantity;
 	private double price;
 	private double total;
+	private String expenseId;
 	
 	@ManyToOne
 	@JoinColumn(name="transaction_id" , referencedColumnName = "transaction_id")
@@ -53,6 +54,12 @@ public class Transaction_smry {
 	}
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
+	}
+	public String getExpenseId() {
+		return expenseId;
+	}
+	public void setExpenseId(String expenseId) {
+		this.expenseId = expenseId;
 	}
 
 }

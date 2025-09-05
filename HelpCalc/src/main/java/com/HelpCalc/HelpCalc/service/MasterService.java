@@ -84,10 +84,11 @@ public class MasterService {
 		if(exuser!=null) {
 			item.setUser(exuser);
 		} else {
-			responseStructure.setStatusCode(1);
+			responseStructure.setStatusCode(400);
 			responseStructure.setMessage("User not found");
 			return ResponseEntity.status(404).body(responseStructure);
 		}
+		item.setType("I");
 		Items savedItem = idao.saveItem(item);
 		if (savedItem != null) {
 			responseStructure.setStatusCode(0);
@@ -108,18 +109,18 @@ public class MasterService {
 		ResponseStructure<ArrayList<Expense>> responseStructure = new ResponseStructure<>();
 		ArrayList<Expense> expensesList = edao.getAllExpenses();
 		if (expensesList != null && !expensesList.isEmpty()) {
-			responseStructure.setStatusCode(0);
+			responseStructure.setStatusCode(200);
 			responseStructure.setMessage("Expenses retrieved successfully");
 			responseStructure.setData(expensesList);
 			return ResponseEntity.ok(responseStructure);
 		} else {
-			responseStructure.setStatusCode(0);
+			responseStructure.setStatusCode(400);
 			responseStructure.setMessage("No expenses found");
 			return ResponseEntity.status(404).body(responseStructure);
 		}
 	}
 	
-	public ResponseEntity<ResponseStructure<Expense>> saveExpense(Expense expense) {
+	public ResponseEntity<ResponseStructure<Expense>> saveExpense(Expense expense , long id) {
 		ResponseStructure<Expense> responseStructure = new ResponseStructure<>();
 		Expense expenseByName = edao.findByExpenseName(expense.getExpenseName());
 		if (expenseByName != null) {
@@ -127,14 +128,23 @@ public class MasterService {
 			responseStructure.setMessage("Expense with this name already exists");
 			return ResponseEntity.status(400).body(responseStructure);
 		}
+		User exuser = ur.findById(id).orElse(null);
+		if(exuser!=null) {
+			expense.setUser(exuser);
+		} else {
+			responseStructure.setStatusCode(400);
+			responseStructure.setMessage("User not found");
+			return ResponseEntity.status(404).body(responseStructure);
+		}
+		expense.setType("E");
 		Expense savedExpense = edao.saveExpense(expense);
 		if (savedExpense != null) {
-			responseStructure.setStatusCode(0);
+			responseStructure.setStatusCode(200);
 			responseStructure.setMessage("Expense saved successfully");
 			responseStructure.setData(savedExpense);
 			return ResponseEntity.ok(responseStructure);
 		} else {
-			responseStructure.setStatusCode(1);
+			responseStructure.setStatusCode(400);
 			responseStructure.setMessage("Failed to save expense");
 			return ResponseEntity.status(500).body(responseStructure);
 		}
@@ -163,7 +173,7 @@ public class MasterService {
 			responseStructure.setMessage("Expense deleted successfully");
 			return ResponseEntity.ok(responseStructure);
 		} else {
-			responseStructure.setStatusCode(1);
+			responseStructure.setStatusCode(400);
 			responseStructure.setMessage("Expense not found");
 			return ResponseEntity.status(404).body(responseStructure);
 		}
@@ -187,6 +197,23 @@ public class MasterService {
 		return null;
 	}
 	
+	public ResponseEntity<ResponseStructure<ArrayList<Expense>>> getExpenseBySearch(String input) {
+		if (input != null && !input.isEmpty()) {
+			ResponseStructure<ArrayList<Expense>> responseStructure = new ResponseStructure<>();
+			ArrayList<Expense> expensesList = edao.getExpenceBySearch(input);
+			if (expensesList != null && !expensesList.isEmpty()) {
+				responseStructure.setStatusCode(200);
+				responseStructure.setMessage("Expenses found for search input");
+				responseStructure.setData(expensesList);
+				return ResponseEntity.ok(responseStructure);
+			} else {
+				responseStructure.setStatusCode(400);
+				responseStructure.setMessage("No expenses found for the search input");
+				return ResponseEntity.status(404).body(responseStructure);
+			}
+		}
+		return null;
+	}
 	
 	
 }

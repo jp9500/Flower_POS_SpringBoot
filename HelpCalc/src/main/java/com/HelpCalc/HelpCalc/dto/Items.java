@@ -14,6 +14,7 @@ public class Items {
 	private int itemId;
 	private String itemName;
 	private String uom;
+	private String type;
 	
 	@ManyToOne
 	@JoinColumn(name = "userid")
@@ -43,6 +44,12 @@ public class Items {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

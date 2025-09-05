@@ -15,6 +15,7 @@ public class Expense {
 	private int expenseId;
 	private String expenseName;
 	private String uom;
+	private String type;
 	
 	@ManyToOne
 	@JoinColumn(name = "userid")
@@ -44,6 +45,12 @@ public class Expense {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	
