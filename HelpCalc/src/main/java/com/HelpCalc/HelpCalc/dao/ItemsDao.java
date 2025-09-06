@@ -51,8 +51,8 @@ public class ItemsDao {
 		return null;
 	}
 	
-	public ArrayList<Items> getAllItems() {
-		return (ArrayList<Items>) itemsRepo.findAll();
+	public ArrayList<Items> getAllItems(Long userid) {
+		return (ArrayList<Items>) itemsRepo.findAllByUserid(userid);
 	}
 
 	public ArrayList<Items> getItemBySearch(String input) {

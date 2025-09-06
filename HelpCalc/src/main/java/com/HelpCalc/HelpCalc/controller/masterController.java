@@ -29,8 +29,8 @@ public class masterController {
 	MasterService s;
 	
 	@GetMapping("getAllItems")
-	public ResponseEntity<ResponseStructure<ArrayList<Items>>> getAllItems() {
-		return s.getAllItems();
+	public ResponseEntity<ResponseStructure<ArrayList<Items>>> getAllItems(@RequestParam Long userid) {
+		return s.getAllItems(userid);
 	}
 	
 	@PostMapping("saveItem/{id}")
@@ -49,8 +49,8 @@ public class masterController {
 	}
 	
 	@GetMapping("getAllExpenses")
-	public ResponseEntity<ResponseStructure<ArrayList<Expense>>> getAllExpenses() {
-		return s.getAllExpenses();
+	public ResponseEntity<ResponseStructure<ArrayList<Expense>>> getAllExpenses(@RequestParam Long userid) {
+		return s.getAllExpenses(userid);
 	}
 	
 	@PostMapping("saveExpense/{userid}")

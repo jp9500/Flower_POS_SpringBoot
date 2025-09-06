@@ -46,8 +46,8 @@ public class ExpenseDao {
 		return null;
 	}
 	
-	public ArrayList<Expense> getAllExpenses() {
-		return (ArrayList<Expense>) er.findAll();
+	public ArrayList<Expense> getAllExpenses(Long userid) {
+		return (ArrayList<Expense>) er.findAllByUserid(userid);
 	}
 	
 	public Expense findByExpenseName(String expenseName) {
