@@ -33,4 +33,17 @@ public class Transactiondao {
 	public List<Object[]> transactionDetails(Long id) {
 		return transrepo.findTransactionDetails(id);
 	}
+	
+	public List<Object[]> findExpenseTransactionDetails(Long id) {
+		return transrepo.findExpenseTransactionDetails(id);
+	}
+	
+	public List<Object[]> expenseWiseSales(String from, String to) {
+		return transrepo.expenseWiseAllSales(from, to);
+	}
+	
+	public List<Object[]> getExpenseTransactions(String from, String to) {
+		return transrepo.getExpenseTransactions(from, to);
+	}
+	
 }

@@ -40,13 +40,30 @@ public class TransController {
 		return transservice.itemwiseSales(from, to);
 	}
 	
+	@GetMapping("expenseWiseSales")
+	public List<Map<String, Object>> getExpenseWiseSales(@RequestParam String from, @RequestParam String to){
+		return transservice.getExpenseWiseSales(from, to);
+	}
+	
 	@GetMapping("recentTransactions")
 	public List<Map<String, Object>> recentTransactions(@RequestParam String from, @RequestParam String to) {
 		return transservice.recentTransactions(from, to);
+	}
+	
+	@GetMapping("getExpenseTransactions")
+	public List<Map<String, Object>> getExpenseTransactions(@RequestParam String from, @RequestParam String to) {
+		return transservice.getExpenseTransactions(from, to);
 	}
 	
 	@GetMapping("transactionDetails")
 	public List<Map<String, Object>> transactionDetails(@RequestParam Long id) {
 		return transservice.transactionDetails(id);
 	}
+	
+	@GetMapping("getExpenseTransactionDetails")
+	public List<Map<String, Object>> getExpenseTransactionDetails(@RequestParam Long id) {
+		return transservice.getExpenseTransactionDetails(id);
+	}
+	
+	
 }

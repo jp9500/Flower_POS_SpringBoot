@@ -1,6 +1,7 @@
 package com.HelpCalc.HelpCalc.dto;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,12 +15,12 @@ public class Transaction_smry {
 	private int id;
 	
 	private int itemId;
-	private int quantity;
+	private double quantity;
 	private double price;
 	private double total;
 	private String expenseId;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="transaction_id" , referencedColumnName = "transaction_id")
 	private Transactions transactions;
 	
@@ -29,10 +30,10 @@ public class Transaction_smry {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 	public double getPrice() {
@@ -61,5 +62,12 @@ public class Transaction_smry {
 	public void setExpenseId(String expenseId) {
 		this.expenseId = expenseId;
 	}
-
+	public Transactions getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(Transactions transactions) {
+		this.transactions = transactions;
+	}
+	
+	
 }

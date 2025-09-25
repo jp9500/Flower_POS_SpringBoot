@@ -28,9 +28,9 @@ public class MasterService {
 	
 	// Item related methods
 	
-	public ResponseEntity<ResponseStructure<ArrayList<Items>>> getAllItems(Long userid) {
+	public ResponseEntity<ResponseStructure<ArrayList<Items>>> getAllItems() {
 		ResponseStructure<ArrayList<Items>> responseStructure = new ResponseStructure<>();
-		ArrayList<Items> itemsList = idao.getAllItems(userid); 
+		ArrayList<Items> itemsList = idao.getAllItems(); 
 		if (itemsList != null && !itemsList.isEmpty()) {
 			responseStructure.setStatusCode(0);
 			responseStructure.setMessage("Items retrieved successfully");
@@ -89,7 +89,6 @@ public class MasterService {
 			return ResponseEntity.status(404).body(responseStructure);
 		}
 		item.setType("I");
-		item.setItemName(item.getItemName().toUpperCase());
 		Items savedItem = idao.saveItem(item);
 		if (savedItem != null) {
 			responseStructure.setStatusCode(0);
@@ -106,9 +105,9 @@ public class MasterService {
 	
 	// Expense related methods
 	
-	public ResponseEntity<ResponseStructure<ArrayList<Expense>>> getAllExpenses(Long userid) {
+	public ResponseEntity<ResponseStructure<ArrayList<Expense>>> getAllExpenses() {
 		ResponseStructure<ArrayList<Expense>> responseStructure = new ResponseStructure<>();
-		ArrayList<Expense> expensesList = edao.getAllExpenses(userid);
+		ArrayList<Expense> expensesList = edao.getAllExpenses();
 		if (expensesList != null && !expensesList.isEmpty()) {
 			responseStructure.setStatusCode(200);
 			responseStructure.setMessage("Expenses retrieved successfully");
@@ -138,7 +137,6 @@ public class MasterService {
 			return ResponseEntity.status(404).body(responseStructure);
 		}
 		expense.setType("E");
-		expense.setExpenseName(expense.getExpenseName().toUpperCase());
 		Expense savedExpense = edao.saveExpense(expense);
 		if (savedExpense != null) {
 			responseStructure.setStatusCode(200);

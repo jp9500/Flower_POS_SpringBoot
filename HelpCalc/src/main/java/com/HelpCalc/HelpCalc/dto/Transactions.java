@@ -31,10 +31,15 @@ public class Transactions {
 	private int userid;
 	private int comm_perc;
 	
-	@OneToMany(cascade = CascadeType.ALL , mappedBy = "transactions")
-	private List<Transaction_smry> smry;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "transactions", orphanRemoval = true)	
+    private List<Transaction_smry> smry;
 	
 	private String type;
+	
+	 public void addSmry(Transaction_smry summary) {
+	        smry.add(summary);
+	        summary.setTransactions(this);
+	    }
 	
 	
 	public LocalDateTime  getTransactionDate() {
